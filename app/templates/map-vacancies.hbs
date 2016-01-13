@@ -7,7 +7,7 @@
       {{#if vacancy.address.lat}}
         {{#if vacancy.address.lng}}
           {{#marker-layer location=vacancy.address lat=vacancy.address.lat lng=vacancy.address.lng draggable=true
-                    popupOpen=(readonly vacancy.isOpen) onDragend=(action "updateLocation" vacancy)}}
+                    popupOpen=(readonly vacancy.isOpen)}}
               <h3>{{vacancy.name}}</h3>
           {{/marker-layer}}
         {{/if}}
@@ -18,8 +18,6 @@
   {{/leaflet-map}}
 </div>
 <p></p>
-
-<br>
 
 {{partial "search"}}
 

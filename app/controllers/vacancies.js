@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   getData: Ember.inject.service('service/index'),
 
   actions: {
-    search() {
+    onSearch() {
       this.set('searchData', this.get('searchData'));
       this.get('getData').getVacancies(this.get('searchData')).then((data) => {
         this.set('model', data);
@@ -12,10 +12,5 @@ export default Ember.Controller.extend({
 
       return false;
     },
-    onKeyPress(){
-      this.get('getData').getVacancies(this.get('searchData')).then((data) => {
-        this.set('model', data);
-      });
-    }
   },
 });

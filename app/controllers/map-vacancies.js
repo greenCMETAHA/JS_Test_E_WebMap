@@ -1,19 +1,22 @@
-import Ember from 'ember';
+import ControllerForSearch from './vacancies';
 
-export default Ember.Controller.extend({
-  getData: Ember.inject.service('service/index'),
+var latLeftMinsk = 53.997679419714072; //original coordinates
+var lngLeftMinsk = 27.770004272460938;
+var latRightMinsk = 53.803489443287994;
+var lngRightMinsk = 27.289352416992188;
 
+export default ControllerForSearch.extend({
   lat: 45.519743,
   lng: -122.680522,
   zoom: 10,
   bb: [
-    [53.997679419714072, 27.770004272460938],
-    [53.803489443287994, 27.289352416992188]
+    [latLeftMinsk, lngLeftMinsk],
+    [latRightMinsk, lngRightMinsk]
   ],
-  latLeft: 53.997679419714072,
-  lngLeft: 27.770004272460938,
-  latRight: 53.803489443287994,
-  lngRight: 27.289352416992188,
+  latLeft: latLeftMinsk,
+  lngLeft: lngLeftMinsk,
+  latRight: latRightMinsk,
+  lngRight: lngRightMinsk,
 
   actions: {
     updateLocation(r, e) {
@@ -23,8 +26,8 @@ export default Ember.Controller.extend({
         lng: location.lng
       });
     },
-    updateCenter(e) {
-      let bounds = e.target.getBounds();
+    updateCenter(event) {
+      let bounds = event.target.getBounds();
 
       this.set('latLeft', bounds.getSouthWest().lat);
       this.set('lngLeft', bounds.getSouthWest().lng);
@@ -36,18 +39,5 @@ export default Ember.Controller.extend({
           this.set('model', data);
         });
     },
-    search() {
-      this.set('searchData', this.get('searchData'));
-      this.get('getData').getVacancies(this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
-        this.get('latRight'), this.get('lngRight')).then((data) => {
-          this.set('model', data);
-        });
-    },
-    onKeyPress(){
-      this.get('getData').getVacancies(this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
-        this.get('latRight'), this.get('lngRight')).then((data) => {
-        this.set('model', data);
-        });
-    }
   },
 });

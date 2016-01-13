@@ -3,8 +3,8 @@
         <div class="input-group">
             <label>Поиск по вакансиям:
               <span class="input-group-btn">
-                {{input value=searchData enter='onKeyPress' class="form-control"}}
-                  <button {{action "search"}} class="btn btn-primary "> Поиск </button>
+                {{input value=searchData enter='onSearch' class="form-control"}}
+                  <button {{action "onSearch"}} class="btn btn-primary "> Поиск </button>
               </span>
             </label>
             <br>
