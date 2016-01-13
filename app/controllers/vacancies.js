@@ -1,17 +1,21 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  URLs: Ember.inject.service('service/index'),
+  getData: Ember.inject.service('service/index'),
 
   actions: {
     search() {
       this.set('searchData', this.get('searchData'));
-      this.get('URLs').getURLcontroller(this, this.get('searchData'));
+      this.get('getData').getVacancies(this.get('searchData')).then((data) => {
+        this.set('model', data);
+      });
 
       return false;
     },
     onKeyPress(){
-      this.get('URLs').getURLcontroller(this, this.get('searchData'));
+      this.get('getData').getVacancies(this.get('searchData')).then((data) => {
+        this.set('model', data);
+      });
     }
   },
 });

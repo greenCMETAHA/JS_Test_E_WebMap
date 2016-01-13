@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  URLs: Ember.inject.service('service/index'),
+  getData: Ember.inject.service('service/index'),
 
   lat: 45.519743,
   lng: -122.680522,
@@ -31,24 +31,23 @@ export default Ember.Controller.extend({
       this.set('latRight', bounds.getNorthEast().lat);
       this.set('lngRight', bounds.getNorthEast().lng);
 
-      this.get('URLs').getURLcontroller(this,this.get('searchData'),bounds.getSouthWest().lat, bounds.getSouthWest().lng,
-        bounds.getNorthEast().lat, bounds.getNorthEast().lng);
-
-      return false;
-
+      this.get('getData').getVacancies(this.get('searchData'),bounds.getSouthWest().lat, bounds.getSouthWest().lng,
+        bounds.getNorthEast().lat, bounds.getNorthEast().lng).then((data) => {
+          this.set('model', data);
+        });
     },
     search() {
       this.set('searchData', this.get('searchData'));
-      this.get('URLs').getURLcontroller(this, this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
-        this.get('latRight'), this.get('lngRight'));
-
-     return false;
+      this.get('getData').getVacancies(this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
+        this.get('latRight'), this.get('lngRight')).then((data) => {
+          this.set('model', data);
+        });
     },
     onKeyPress(){
-      this.get('URLs').getURLcontroller(this, this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
-        this.get('latRight'), this.get('lngRight'));
-
-    return false;
+      this.get('getData').getVacancies(this.get('searchData'),this.get('latLeft'), this.get('lngLeft'),
+        this.get('latRight'), this.get('lngRight')).then((data) => {
+        this.set('model', data);
+        });
     }
   },
 });

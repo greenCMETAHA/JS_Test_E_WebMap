@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  URLs: Ember.inject.service('service/index'),
+  getData: Ember.inject.service('service/index'),
   model() {
-    return this.get('URLs').getURLroute(); //default
+    return this.get('getData').getVacancies(); //default
   },
 });
 

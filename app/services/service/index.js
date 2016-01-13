@@ -32,12 +32,7 @@ export default Ember.Service.extend({
 
     return url;
   },
-  getURLcontroller: function(controllerContext, searchData, swLat, swLng, neLat, neLng ) {
-    Ember.$.getJSON(this.getURL(searchData, swLat, swLng, neLat, neLng)).then((data) => {
-      controllerContext.set('model', data);
-    });
-  },
-  getURLroute: function(searchData, swLat, swLng, neLat, neLng ) {
+  getVacancies: function(searchData, swLat, swLng, neLat, neLng ) {
     return Ember.$.getJSON(this.getURL(searchData, swLat, swLng, neLat, neLng));
-  }
+  },
 });

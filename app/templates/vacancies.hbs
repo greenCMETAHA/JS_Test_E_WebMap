@@ -1,35 +1,21 @@
 <br>
-<div>
-    <form  {{action "searchAction" on="submit"}}>
-        <div class="col-lg-6">
-            <div class="input-group">
-                <label>Поиск по вакансиям:
+{{partial "search"}}
 
-                  <span class="input-group-btn">
-                    {{input value=searchData enter='onKeyPress' class="form-control"}}
-                      <button {{action "search"}} class="btn btn-primary "> Поиск </button>
-                  </span>
-                </label>
-                <br>
-            </div>
-        </div>
-
-    </form>
-</div>
-
-<table class="table-bordered">
-    <thead>
-        <td>Наименование вакансии</td>
-        <td>Город</td>
-        <td>Наниматель</td>
-        <td>Валюта</td>
-        <td>Сумма вознаграждения от</td>
-        <td>до</td>
-        <td>Требования</td>
-        <td>Сфера ответственности</td>
-        <td>Адрес</td>
+<table class="table table-striped table-bordered" >
+    <thead class="thead-inverse">
+      <tr>
+        <th>Наименование вакансии</th>
+        <th>Город</th>
+        <th>Наниматель</th>
+        <th>Валюта</th>
+        <th>Сумма вознаграждения от</th>
+        <th>до</th>
+        <th>Требования</th>
+        <th>Сфера ответственности</th>
+        <th>Адрес</th>
+      </tr>
     </thead>
-    <tbody>
+    <tbody  class="table-striped">
     {{#each model.items  as |vacancies|}}
         <tr>
             <td>{{vacancies.name}}</td>
