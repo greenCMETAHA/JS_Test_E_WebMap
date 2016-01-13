@@ -1,0 +1,78 @@
+<div>
+  {{#leaflet-map  bounds=bb  onMoveend=(action "updateCenter")}}
+    {{tile-layer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}}
+
+    {{#marker-cluster-layer}}
+    {{#each model.items as |vacancy|}}
+      {{#if vacancy.address.lat}}
+        {{#if vacancy.address.lng}}
+          {{#marker-layer location=vacancy.address lat=vacancy.address.lat lng=vacancy.address.lng draggable=true
+                    popupOpen=(readonly vacancy.isOpen) onDragend=(action "updateLocation" vacancy)}}
+              <h3>{{vacancy.name}}</h3>
+          {{/marker-layer}}
+        {{/if}}
+      {{/if}}
+    {{/each}}
+    {{/marker-cluster-layer}}
+
+  {{/leaflet-map}}
+</div>
+<p></p>
+
+<br>
+
+<div>
+    <form  {{action "searchAction" on="submit"}}>
+        <div class="col-lg-6">
+            <div class="input-group">
+              <label>Поиск по вакансиям:
+                  <span class="input-group-btn">
+                    {{input value=searchData enter='onKeyPress' class="form-control"}}
+                    <button {{action "search"}} class="btn btn-primary "> Поиск </button>
+                  </span>
+              </label>
+              <br>
+            </div>
+        </div>
+
+    </form>
+</div>
+<p></p>
+<table class="table-bordered">
+    <thead align="center">
+        <td>Наименование вакансии</td>
+        <td>Город</td>
+        <td>Наниматель</td>
+        <td>Валюта</td>
+        <td>Сумма вознаграждения</td>
+        <td>Требования</td>
+        <td>Сфера ответственности</td>
+        <td>Адрес</td>
+        <td>Координаты</td>
+    </thead>
+    <tbody>
+      {{#each model.items  as |vacancies|}}
+          <tr>
+              <td valign="top">{{vacancies.name}}</td>
+              <td align="center">{{vacancies.area.name}}</td>
+              <td>{{{vacancies.employer.name}}}</td>
+              <td  align="center">{{vacancies.salary.currency}}</td>
+              <td>{{vacancies.salary.from}} - {{vacancies.salary.to}}</td>
+              <td valign="top">{{{vacancies.snippet.requirement}}}</td>
+              <td valign="top">{{{vacancies.snippet.responsibility}}}</td>
+              <td>{{{vacancies.address.street}}}</td>
+              {{#if vacancy.address.lat}}
+                {{#if vacancy.address.lng}}
+                  <td>[{{vacancies.address.lat}};{{vacancies.address.lng}}]</td>
+                {{else}}
+                  <td></td>
+                {{/if}}
+                  <td></td>
+              {{/if}}
+          </tr>
+      {{/each}}
+    </tbody>
+
+</table>
+
+{{outlet}}

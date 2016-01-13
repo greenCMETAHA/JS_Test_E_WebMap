@@ -1,0 +1,49 @@
+<br>
+<div>
+    <form  {{action "searchAction" on="submit"}}>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <label>Поиск по вакансиям:
+
+                  <span class="input-group-btn">
+                    {{input value=searchData enter='onKeyPress' class="form-control"}}
+                      <button {{action "search"}} class="btn btn-primary "> Поиск </button>
+                  </span>
+                </label>
+                <br>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<table class="table-bordered">
+    <thead>
+        <td>Наименование вакансии</td>
+        <td>Город</td>
+        <td>Наниматель</td>
+        <td>Валюта</td>
+        <td>Сумма вознаграждения от</td>
+        <td>до</td>
+        <td>Требования</td>
+        <td>Сфера ответственности</td>
+        <td>Адрес</td>
+    </thead>
+    <tbody>
+    {{#each model.items  as |vacancies|}}
+        <tr>
+            <td>{{vacancies.name}}</td>
+            <td>{{vacancies.area.name}}</td>
+            <td>{{vacancies.employer.name}}</td>
+            <td>{{vacancies.salary.currency}}</td>
+            <td>{{vacancies.salary.from}}</td>
+            <td>{{vacancies.salary.to}}</td>
+            <td>{{{vacancies.snippet.requirement}}}</td>
+            <td>{{vacancies.snippet.responsibility}}</td>
+            <td>{{vacancies.address.street}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+{{outlet}}
